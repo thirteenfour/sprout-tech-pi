@@ -19,8 +19,8 @@ initserial = False
 
 while True:
     # communication with mega
-    if ser.in_waiting > 0:
-        line = ser.readline().decode('utf-8').rstrip() # receive status information from mega
+    if mega.in_waiting > 0:
+        line = mega.readline().decode('utf-8').rstrip() # receive status information from mega
         status = line.split('_')
         status[6] = status[6][0:4] # remove trailing '#' from euwf
         # send sensor information to server
