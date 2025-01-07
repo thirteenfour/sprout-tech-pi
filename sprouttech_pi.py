@@ -19,16 +19,17 @@ initserial = False
 
 while True:
     # communication with mega
-    if mega.in_waiting > 0:
-        line = mega.readline().decode('utf-8').rstrip() # receive status information from mega
-        status = line.split('_')
-        status[6] = status[6][0:4] # remove trailing '#' from euwf
-        # send sensor information to server
-        r1 = requests.post('https://alyssagollena.com/updatesensors.php', data={'temperature':float(status[1]), 'humidity':float(status[2]), 'soilmoisture1':float(status[3]), 'soilmoisture2':float(status[4]), 'waterlevel':int(status[5])})
-        # send initial command status to server (only on initial)
-        if initserial == False:
-            r2 = requests.post('https://alyssagollena.com/updatecommands.php', data={'fanstate':status[6][0], 'uvstate':status[6][1], 'wateringstate':status[6][2], 'fertilizerstate':status[6][3]})
-            initserial = True
+    # if mega.in_waiting > 0:
+    line = mega.readline().decode('utf-8').rstrip() # receive status information from mega
+    status = line.split('_')
+    status[6] = status[6][0:4] # remove trailing '#' from euwf
+    # send sensor information to server
+    r1 = requests.post('https://alyssagollena.com/updatesensors.php', data={'temperature':float(status[1]), 'humidity':float(status[2]), 'soilmoisture1':float(status[3]), 'soilmoisture2':float(status[4]), 'waterlevel':int(status[5])})
+    print(r1.text)
+    # send initial command status to server (only on initial)
+    if initserial == False:
+        r2 = requests.post('https://alyssagollena.com/updatecommands.php', data={'fanstate':status[6][0], 'uvstate':status[6][1], 'wateringstate':status[6][2], 'fertilizerstate':status[6][3]})
+        initserial = True
     # communication with server
     r3 = requests.post('https://alyssagollena.com/getcommands.php')
     r3cmd = r3.json()
