@@ -36,13 +36,13 @@ while True:
     megacmd = '@St_' + r3cmd['fanstate'] + r3cmd['uvstate'] + r3cmd['wateringstate'] + r3cmd['fertilizerstate'] + '\n'
     mega.write(megacmd.encode('ascii'))
     # images
-	ret, image = cam.read()
-	cv2.imshow('Imagetest',image)
-	k = cv2.waitKey(1)
-	if k != -1:
-		break
-	# delay
-	time.sleep(1)
+    ret, image = cam.read()
+    cv2.imshow('Imagetest',image)
+    k = cv2.waitKey(1)
+    if k != -1:
+        break
+    # delay
+    time.sleep(1)
 cv2.imwrite('/home/thirteenfour/Desktop/testimage.jpg', image)
 cam.release()
 cv2.destroyAllWindows()
