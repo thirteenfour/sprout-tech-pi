@@ -26,7 +26,7 @@ while True:
         # send sensor information to server
         r1 = requests.post('https://alyssagollena.com/updatesensors.php', data={'temperature':float(status[1]), 'humidity':float(status[2]), 'soilmoisture1':float(status[3]), 'soilmoisture2':float(status[4]), 'waterlevel':int(status[5])})
         # send initial command status to server (only on initial)
-        if initserial = False:
+        if initserial == False:
             r2 = requests.post('https://alyssagollena.com/updatecommands.php', data={'fanstate':status[6][0], 'uvstate':status[6][1], 'wateringstate':status[6][2], 'fertilizerstate':status[6][3]})
             initserial = True
     # communication with server
