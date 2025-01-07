@@ -13,7 +13,7 @@ import time
 # win.move(100,100)
 
 cam = cv2.VideoCapture(0)
-mega = serial.Serial('/dev/ttyUSB0',9600)
+mega = serial.Serial('/dev/ttyUSB1',9600)
 mega.reset_input_buffer()
 initserial = False
 
