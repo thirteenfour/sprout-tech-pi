@@ -1,14 +1,18 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow
-import sys
+# from PyQt5.QtWidgets import QApplication, QMainWindow
+# import sys
 import cv2
+import requests
+import json
+import serial
 
-app = QApplication([])
-win = QMainWindow()
-win.setWindowTitle("Sprout-Tech")
-win.resize(500,300)
-win.move(100,100)
+# app = QApplication([])
+# win = QMainWindow()
+# win.setWindowTitle("Sprout-Tech")
+# win.resize(500,300)
+# win.move(100,100)
 
 cam = cv2.VideoCapture(0)
+mega = serial.Serial('/dev/ttyACM0',9600)
 
 while True:
 	ret, image = cam.read()
@@ -20,6 +24,6 @@ cv2.imwrite('/home/thirteenfour/Desktop/testimage.jpg', image)
 cam.release()
 cv2.destroyAllWindows()
 
-win.show()
+# win.show()
 
-sys.exit(app.exec_())
+# sys.exit(app.exec_())
