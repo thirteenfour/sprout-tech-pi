@@ -33,7 +33,7 @@ while True:
     ret, image = cam.read()                                    # read image
     ret, buffer = cv2.imencode('.jpg', image)                  # encode to jpg
     jpg_as_text = base64.b64encode(buffer).decode('utf-8')     # Convert to base64 encoding string
-    print(jpg_as_text)
+    # print(jpg_as_text)
     r4 = requests.post('https://alyssagollena.com/updatecamerafeed.php', data={'imagedata':jpg_as_text})
     # display to screen
     cv2.imshow('Imagetest',image)
