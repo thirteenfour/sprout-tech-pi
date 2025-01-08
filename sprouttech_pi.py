@@ -36,7 +36,7 @@ while True:
     # print(jpg_as_text)
     r4 = requests.post('https://alyssagollena.com/updatecamerafeed.php', data={'imagedata':jpg_as_text})
     # display to screen
-    cv2.imshow('Imagetest',image)
+    # cv2.imshow('Imagetest',image)
     k = cv2.waitKey(1)
     if k != -1:
         break
