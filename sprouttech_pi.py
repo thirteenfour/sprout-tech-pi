@@ -1,16 +1,9 @@
-# from PyQt5.QtWidgets import QApplication, QMainWindow
-# import sys
 import cv2
+import base64
 import requests
 import json
 import serial
 import time
-
-# app = QApplication([])
-# win = QMainWindow()
-# win.setWindowTitle("Sprout-Tech")
-# win.resize(500,300)
-# win.move(100,100)
 
 cam = cv2.VideoCapture(0)
 mega = serial.Serial('/dev/ttyUSB1',9600)
@@ -37,7 +30,11 @@ while True:
     megacmd = '@St_' + r3cmd['fanstate'] + r3cmd['uvstate'] + r3cmd['wateringstate'] + r3cmd['fertilizerstate'] + '\n'
     mega.write(megacmd.encode('ascii'))
     # images
-    ret, image = cam.read()
+    ret, image = cam.read()                                    # read image
+    ret, buffer = cv2.imencode('.jpg', image)                  # encode to jpg
+    jpg_as_text = base64.b64encode(buffer).decode('utf-8')     # Convert to base64 encoding string
+    r4 = requests.post('https://alyssagollena.com/updatecamerafeed.php', data={'imagedata':jpg_as_text})
+    # display to screen
     cv2.imshow('Imagetest',image)
     k = cv2.waitKey(1)
     if k != -1:
@@ -47,7 +44,3 @@ while True:
 cv2.imwrite('/home/thirteenfour/Desktop/testimage.jpg', image)
 cam.release()
 cv2.destroyAllWindows()
-
-# win.show()
-
-# sys.exit(app.exec_())
