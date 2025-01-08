@@ -18,7 +18,7 @@ while True:
     status[6] = status[6][0:4] # remove trailing '#' from euwf
     # send sensor information to server
     r1 = requests.post('https://alyssagollena.com/updatesensors.php', data={'temperature':float(status[1]), 'humidity':float(status[2]), 'soilmoisture1':float(status[3]), 'soilmoisture2':float(status[4]), 'waterlevel':int(status[5])})
-    print(r1.text)
+    # print(r1.text)
     # send initial command status to server (only on initial)
     if initserial == False:
         r2 = requests.post('https://alyssagollena.com/updatecommands.php', data={'fanstate':status[6][0], 'uvstate':status[6][1], 'wateringstate':status[6][2], 'fertilizerstate':status[6][3]})
@@ -33,6 +33,7 @@ while True:
     ret, image = cam.read()                                    # read image
     ret, buffer = cv2.imencode('.jpg', image)                  # encode to jpg
     jpg_as_text = base64.b64encode(buffer).decode('utf-8')     # Convert to base64 encoding string
+    print(jpg_as_text)
     r4 = requests.post('https://alyssagollena.com/updatecamerafeed.php', data={'imagedata':jpg_as_text})
     # display to screen
     cv2.imshow('Imagetest',image)
